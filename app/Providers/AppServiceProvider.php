@@ -21,8 +21,11 @@ class AppServiceProvider extends ServiceProvider
         }
     }
 
+
     public function boot(): void
     {
+        $this->ensureStoragePaths();
+
         Paginator::defaultView('vendor.pagination.rfq');
         Paginator::defaultSimpleView('vendor.pagination.rfq');
         \Illuminate\Support\Facades\Blade::directive('jdate', function ($expression) {
@@ -47,6 +50,28 @@ class AppServiceProvider extends ServiceProvider
             if (str_starts_with((string) $root, 'https://')) {
                 URL::forceScheme('https');
             }
+        }
+    }
+
+    /** مسیرهای ضروری storage برای artisan/view روی PaaS تازه‌ساخته */
+    protected function ensureStoragePaths(): void
+    {
+        foreach ([
+            storage_path('framework/views'),
+            storage_path('framework/cache'),
+            storage_path('framework/cache/data'),
+            storage_path('framework/sessions'),
+            storage_path('logs'),
+            storage_path('app/public'),
+            base_path('bootstrap/cache'),
+        ] as $dir) {
+            if (!is_dir($dir)) {
+                @mkdir($dir, 0775, true);
+            }
+        }
+        // اگر VIEW_COMPILED_PATH خالی است، همان مسیر پیش‌فرض را ست کن
+        if (!config('view.compiled')) {
+            config(['view.compiled' => storage_path('framework/views')]);
         }
     }
 }
