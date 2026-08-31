@@ -1,0 +1,9 @@
+In Laravel 11 routes/console.php or bootstrap/app.php schedule:
+
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::command('rfq:backup-run')->daily();
+// or ->weekly() based on AppSetting — command itself checks enabled flag.
+
+Server cron:
+* * * * * cd /path/to/project && php artisan schedule:run >> /dev/null 2>&1

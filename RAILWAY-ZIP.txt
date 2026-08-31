@@ -1,0 +1,11 @@
+برای فعال‌سازی ZipArchive روی Railway:
+در Dockerfile یا nixpacks از PHP با extension zip استفاده کنید.
+
+مثال Dockerfile:
+RUN apt-get update && apt-get install -y libzip-dev \
+ && docker-php-ext-install zip
+
+یا در composer.json:
+"ext-zip": "*"
+
+بدون zip هم بک‌آپ JSON کار می‌کند؛ فقط آرشیو با فایل‌های پیوست ساخته نمی‌شود.

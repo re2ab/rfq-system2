@@ -1,0 +1,5 @@
+In Laravel 11 bootstrap/providers.php ensure this line exists:
+
+App\Providers\AppServiceProvider::class,
+
+Also in config/app.php or via package discovery, Spatie Permission must be registered.

@@ -1,0 +1,30 @@
+{
+  "name": "RFQ-Core",
+  "image": "mcr.microsoft.com/devcontainers/php:1-8.2-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Laravel",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y default-mysql-client libzip-dev && sudo docker-php-ext-install pdo_mysql zip bcmath 2>/dev/null || true; composer install --no-interaction --prefer-dist || true; cp -n .env.example .env 2>/dev/null || true; php artisan key:generate --force 2>/dev/null || true; touch database/database.sqlite 2>/dev/null || true; php artisan migrate --force 2>/dev/null || true; php artisan db:seed --force 2>/dev/null || true; php artisan storage:link 2>/dev/null || true",
+  "postStartCommand": "php artisan serve --host=0.0.0.0 --port=8000",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "bradlc.vscode-tailwindcss"
+      ],
+      "settings": {
+        "php.validate.executablePath": "/usr/bin/php"
+      }
+    }
+  },
+  "remoteUser": "vscode"
+}

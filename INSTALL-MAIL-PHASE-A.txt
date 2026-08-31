@@ -1,0 +1,16 @@
+RFQ-Core 19.9.0 — فاز A کلاینت ایمیل یکپارچه
+==============================================
+
+نصب:
+1) بک‌آپ پروژه + دیتابیس
+2) کپی فایل‌های پچ روی پروژه (بدون overwrite کردن .env و storage)
+3) php artisan migrate --force
+4) php artisan route:clear && php artisan view:clear && php artisan config:clear
+5) (اختیاری) php artisan mail:sync
+
+مسیر ادمین: /mail/accounts
+یا تنظیمات → «اکانت‌های ایمیل یکپارچه»
+
+نیاز: ext-imap روی PHP
+
+جزئیات: docs/MAIL-PHASE-A.md

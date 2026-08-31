@@ -1,0 +1,22 @@
+RFQ-Core 20.41 FULL RESTORE
+===========================
+این پک شامل فایل‌های اصلاح‌شده تا این مرحله است (داشبورد، تاریخ شمسی، حذف ساعت سررسید،
+wipe، حذف سازمان، ZipArchive fallback، UI موبایل/دسکتاپ، تایم‌زون در ظاهر و برند، ...).
+
+نصب:
+1) از ریشه پروژه فعلی یک بک‌آپ بگیرید.
+2) محتویات این زیپ را روی ریشه پروژه Extract کنید (Overwrite).
+3) دستورات:
+   php artisan route:clear
+   php artisan view:clear
+   php artisan config:clear
+   php artisan optimize:clear
+   php artisan route:list | grep -E "wipe|organizations.destroy"
+
+4) در .env یا Railway:
+   APP_TIMEZONE=Asia/Tehran
+
+5) تنظیمات → ظاهر و برند → منطقه زمانی Asia/Tehran → ذخیره
+
+اگر routes/web.php شما سفارشی است و conflict شد، فقط بخش organizations destroy و
+require rfq_wipe_routes.php را دستی نگه دارید.
